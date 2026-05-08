@@ -19,73 +19,73 @@ function Footer() {
         <div className="col mb-3">
           <p className="fs-5">Account</p>
           <a href="#" className="text-muted">Open demat account</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Minor demat account</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">NRI demat account</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">HUF demat account</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Commodity</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Dematerialisation</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Fund transfer</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">MTF</a>
         </div>
         <div className="col mb-3">
           <p className="fs-5">Support</p>
           <a href="#" className="text-muted">Contact us</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Support portal</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">How to file a complaint?</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Status of your complaints</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Bulletin</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Circular</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Z-Connect blog</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Downloads</a>
         </div>
         <div className="col mb-3">
           <p className="fs-5">Company</p>
           <a href="#" className="text-muted">About</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Philosophy</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Press & media</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Careers</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Zerodha Cares (CSR)</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Zerodha.tech</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Open source</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Referral program</a>
         </div>
         <div className="col mb-3">
           <p className="fs-5">Quick links</p>
           <a href="#" className="text-muted">Upcoming IPOs</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted" >Brokerage charges</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Market holidays</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Economic calendar</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Calculators</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Markets</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Sectors</a>
-          <br /><br />
+          <br />
           <a href="#" className="text-muted">Gift Nifty</a>
         </div>
         <div className="mt-5 text-muted" style={{ fontSize: "14px" }}>
