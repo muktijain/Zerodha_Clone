@@ -63,10 +63,8 @@ function Navbar() {
                     Support
                   </Link>
                 </li>
-                <li class="nav-item">
-                  
+                <li class="nav-item" className=" p-2">
                    <i class="fa-solid fa-bars"></i>
-           
                 </li>
               </ul>
             </form>
