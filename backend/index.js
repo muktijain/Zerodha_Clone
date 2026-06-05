@@ -23,8 +23,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://kite-0dha.netlify.app/",
-      "https://0dhaclone.netlify.app/",
+      "https://kite-0dha.netlify.app",
+      "https://0dhaclone.netlify.app",
       "http://localhost:3001",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
