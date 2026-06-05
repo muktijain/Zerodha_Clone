@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import BASE_URL from "../../enviornment";
 
 const Signup = () => {
-  const baseURL = "http://localhost:3002";
+  // const baseURL = "http://localhost:3002";
+   const dasboardUrl = "https://kite-0dha.netlify.app"
+
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     mobile: "",
@@ -33,7 +37,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${baseURL}/signup`,
+        `${BASE_URL}/signup`,
         {
           ...inputValue,
         },
@@ -43,7 +47,7 @@ const Signup = () => {
       if (success) {
         handleSuccess("User created successfully");
         setTimeout(() => {
-          window.location.href = "http://localhost:3001/holdings";
+          window.location.href = `${dasboardUrl}/holdings`;
         }, 1000);
       } else {
         handleError("Enter valid credentials");

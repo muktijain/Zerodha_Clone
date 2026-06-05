@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import BASE_URL from "../enviornment";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AuthPage = () => {
         navigate("/login");
       }
       const { data } = await axios.post(
-        "http://localhost:3002",
+        `${BASE_URL}/verifyToken`,
         {},
         { withCredentials: true }
       );

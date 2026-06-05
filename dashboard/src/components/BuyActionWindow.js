@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import GeneralContext from "./GeneralContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import  BASE_URL  from "../enviornment";
 import "./BuyActionWindow.css";
-const baseUrl = "http://localhost:3002";
 
 const BuyActionWindow = ({ uid, order }) => {
   const generalContext = useContext(GeneralContext);
@@ -24,7 +23,7 @@ const BuyActionWindow = ({ uid, order }) => {
     const token = localStorage.getItem("token");
     try{
       await axios.post(
-      `${baseUrl}/newOrder`,
+      `${BASE_URL}/newOrder`,
       {
         name: uid,
         qty: stockQuantity,
@@ -50,7 +49,7 @@ const BuyActionWindow = ({ uid, order }) => {
   const handleUpdateClick = async () => {
     console.log("Updating order:", order);
     try {
-      await axios.put(`${baseUrl}/updateOrder/${order._id}`, {
+      await axios.put(`${BASE_URL}/updateOrder/${order._id}`, {
         qty: stockQuantity,
         price: stockPrice,
       });

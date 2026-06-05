@@ -3,9 +3,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import BASE_URL from "../enviornment";
 const Login = () => {
-  const baseURL = "http://localhost:3002";
+  // const baseURL = "http://localhost:3002";
   const navigation = useNavigate();
   const [inputValues, setInputValues] = useState({
     mobile: "",
@@ -38,7 +38,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${baseURL}/login`,
+        `${BASE_URL}/login`,
         {
           ...inputValues,
         },
@@ -52,7 +52,7 @@ const Login = () => {
       if (success) {
         handleSuccess("login successful");
         setTimeout(() => {
-          window.location.href = "http://localhost:3000/holdings";
+          window.location.href = `${BASE_URL}/holdings`;
         }, 1000);
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("token", data.token);
