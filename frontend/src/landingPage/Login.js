@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import BASE_URL from "../enviornment";
 const Login = () => {
   // const baseURL = "http://localhost:3002";
+  const dasboardUrl = "https://kite-0dha.netlify.app"
+
   const navigation = useNavigate();
   const [inputValues, setInputValues] = useState({
     mobile: "",
@@ -52,7 +54,7 @@ const Login = () => {
       if (success) {
         handleSuccess("login successful");
         setTimeout(() => {
-          window.location.href = `${BASE_URL}/holdings`;
+          window.location.href = `${dasboardUrl}/holdings`;
         }, 1000);
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("token", data.token);
