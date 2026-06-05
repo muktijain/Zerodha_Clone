@@ -1,12 +1,13 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
 import { StackedChart } from "./Charts/StackedChart";
+import BASE_URL from "../enviornment";
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/allpositions").then((res) => {
+    axios.get(`${BASE_URL}/allpositions`).then((res) => {
       // console.log(res.data);
       setAllPositions(res.data);
     });

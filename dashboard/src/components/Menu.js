@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
 import GeneralContext from "./GeneralContext";
 import { Link } from "react-router-dom";
+import BASE_URL from "../enviornment";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
@@ -19,7 +20,7 @@ const Menu = () => {
 
   const handleLogout = async () => {
     await axios.post(
-      "http://localhost:3002/logout",
+      `${BASE_URL}/logout`,
       {},
       {
         withCredentials: true,
@@ -27,7 +28,7 @@ const Menu = () => {
     );
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-   window.location.href = "http://localhost:3001/login";
+   window.location.href = "https://0dhaclone.netlify.app/login";
   };
 
   const menuClass = "menu";

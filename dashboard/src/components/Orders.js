@@ -4,7 +4,8 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 import { Line } from "react-chartjs-2";
 import { LineChart } from "./Charts/LineChart";
-const baseUrl = "http://localhost:3002";
+import BASE_URL from "../enviornment";
+// const baseUrl = "http://localhost:3002";
 
 const Orders = () => {
   // const userId = localStorage.getItem("userId");
@@ -15,7 +16,7 @@ const Orders = () => {
   const fetchOrders = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(`${baseUrl}/allorders`, {
+      .get(`${BASE_URL}/allorders`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,7 +34,7 @@ const Orders = () => {
 
   const handleDeleteOrder = (id) => {
     axios
-      .delete(`${baseUrl}/deleteOrder/${id}`, {
+      .delete(`${BASE_URL}/deleteOrder/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
