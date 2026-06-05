@@ -50,6 +50,11 @@ app.get('/allpositions', async (req, res) => {
     let allPositions = await PositionsModel.find({});
     res.json(allPositions);
 });
+// app.get('/seed', async (req, res) => {
+//   await PositionsModel.insertMany(allPositions);
+//   console.log("Seeded positions data !");
+//   res.json({ message: "Seeded!" });
+// });
 
 app.post('/newOrder', verifyUser, async (req, res) => {
     let newOrder = new OrdersModel({

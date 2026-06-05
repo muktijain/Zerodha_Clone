@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
+import { StackedChart } from "./Charts/StackedChart";
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
@@ -10,6 +11,24 @@ const Positions = () => {
       setAllPositions(res.data);
     });
   }, []);
+
+  const labels = allPositions.map((stock) => stock.name);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "P&L",
+        data: allPositions.map(
+          (stock) => (stock.price - stock.avg) * stock.qty
+        ),
+        backgroundColor: allPositions.map((stock) =>
+          (stock.price - stock.avg) * stock.qty >= 0
+            ? "rgba(7, 107, 32, 0.95)"
+            : "rgb(197, 7, 7)"
+        ),
+      },
+    ],
+  };
 
   return (
     <>
@@ -50,6 +69,7 @@ const Positions = () => {
           </tbody>
         </table>
       </div>
+      <StackedChart data={data} />
     </>
   );
 };

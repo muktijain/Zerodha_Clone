@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import GeneralContext from "./GeneralContext";
+import { Line } from "react-chartjs-2";
+import { LineChart } from "./Charts/LineChart";
 const baseUrl = "http://localhost:3002";
 
 const Orders = () => {
@@ -38,6 +40,22 @@ const Orders = () => {
         fetchOrders(); // Refresh the orders list after deletion
       });
   };
+
+const labels = orders.map((order) => order.name);
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: "Order Price",
+      data: orders.map((order) => order.price),
+      borderColor: "rgb(13, 44, 146)",
+      backgroundColor: "rgba(31, 28, 223, 0.5)",
+      tension: 0.3,
+    },
+  ],
+};
+
 
   return (
     <>
@@ -106,6 +124,8 @@ const Orders = () => {
           <p>P&L</p>
         </div>
       </div>
+
+      <LineChart data={data}/>
     </>
   );
 };
