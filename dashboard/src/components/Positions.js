@@ -1,9 +1,39 @@
-import React from "react";
-import { positions } from "../data/data";
+import React, { useState, useEffect} from "react";
+import axios from "axios";
+import { StackedChart } from "./Charts/StackedChart";
+import BASE_URL from "../enviornment";
+
 const Positions = () => {
+  const [allPositions, setAllPositions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/allpositions`).then((res) => {
+      // console.log(res.data);
+      setAllPositions(res.data);
+    });
+  }, []);
+
+  const labels = allPositions.map((stock) => stock.name);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "P&L",
+        data: allPositions.map(
+          (stock) => (stock.price - stock.avg) * stock.qty
+        ),
+        backgroundColor: allPositions.map((stock) =>
+          (stock.price - stock.avg) * stock.qty >= 0
+            ? "rgba(7, 107, 32, 0.95)"
+            : "rgb(197, 7, 7)"
+        ),
+      },
+    ],
+  };
+
   return (
     <>
-      <h3 className="title">Positions (2)</h3>
+      <h3 className="title">Positions ({allPositions.length})</h3>
 
       <div className="order-table">
         <table>
@@ -18,7 +48,7 @@ const Positions = () => {
               <th>Chg.</th>
             </tr>
 
-            {positions.map((stock, index) => {
+            {allPositions.map((stock, index) => {
               const curValue = stock.price * stock.qty;
               const isProfit = curValue - stock.avg * stock.qty >= 0.0;
               const profitClass = isProfit ? "profit" : "loss";
@@ -40,6 +70,7 @@ const Positions = () => {
           </tbody>
         </table>
       </div>
+      <StackedChart data={data} />
     </>
   );
 };

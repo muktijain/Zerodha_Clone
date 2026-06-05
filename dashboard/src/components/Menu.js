@@ -1,5 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Navigate } from "react-router-dom";
+import GeneralContext from "./GeneralContext";
 import { Link } from "react-router-dom";
+import BASE_URL from "../enviornment";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
@@ -12,6 +16,20 @@ const Menu = () => {
   const handleProfileClick = (index) => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await axios.post(
+      `${BASE_URL}/logout`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+   window.location.href = "https://0dhaclone.netlify.app/login";
+  };
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
@@ -22,42 +40,95 @@ const Menu = () => {
       <div className="menus">
         <ul>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/" onClick={() => handleMenuClick(0)}>
-              <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>Dashboard</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/"
+              onClick={() => handleMenuClick(0)}
+            >
+              <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>
+                Dashboard
+              </p>
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/orders" onClick={() => handleMenuClick(1)}>
-              <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>Orders</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/orders"
+              onClick={() => handleMenuClick(1)}
+            >
+              <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>
+                Orders
+              </p>
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/holdings" onClick={() => handleMenuClick(2)}>
-              <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>Holdings</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/holdings"
+              onClick={() => handleMenuClick(2)}
+            >
+              <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>
+                Holdings
+              </p>
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/positions" onClick={() => handleMenuClick(3)}>
-              <p className={selectedMenu === 3 ? activeMenuClass : menuClass} >Positions</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/positions"
+              onClick={() => handleMenuClick(3)}
+            >
+              <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>
+                Positions
+              </p>
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/funds" onClick={() => handleMenuClick(4)}>
-              <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>Funds</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/funds"
+              onClick={() => handleMenuClick(4)}
+            >
+              <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
+                Funds
+              </p>
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="/apps" onClick={() => handleMenuClick(5)}>
-              <p className={selectedMenu === 5 ? activeMenuClass : menuClass} >Apps</p>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/apps"
+              onClick={() => handleMenuClick(5)}
+            >
+              <p className={selectedMenu === 5 ? activeMenuClass : menuClass}>
+                Apps
+              </p>
             </Link>
           </li>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+        <div className="profile-wrapper" style={{ position: "relative" }}>
+          <div className="profile dropdown-toggle" onClick={handleProfileClick}>
+            <div className="avatar">ZU</div>
+            <p className="username">USERID</p>
+          </div>
+
+          {isProfileDropdownOpen && (
+            <div className="profile-dropdown">
+              <ul className="profile-dropdown-menu">
+                <li>
+                  <i className="ti ti-user"></i> Profile
+                </li>
+                <li>
+                  <i className="ti ti-settings"></i> Settings
+                </li>
+                <li className="logout" onClick={handleLogout}>
+                  <i className="ti ti-logout"></i> Logout
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-        {/* {isProfileDropdownOpen} */}
       </div>
     </div>
   );

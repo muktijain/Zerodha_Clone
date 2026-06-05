@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Apps from "./Apps";
@@ -9,13 +9,20 @@ import Orders from "./Orders";
 import Positions from "./Positions";
 import Summary from "./Summary";
 import WatchList from "./WatchList";
-// import { GeneralContextProvider } from "../context/GeneralContext";
+import saveTokenFromURL from "../utils/saveToken";
+import { GeneralContextProvider } from "./GeneralContext";
+
 const Dashboard = () => {
+ 
+  useEffect(() => {
+    saveTokenFromURL(); // runs once on load
+  }, []);
+
   return (
     <div className="dashboard-container">
-      {/* <GeneralContextProvider> */}
+      <GeneralContextProvider>
         <WatchList />
-      {/* </GeneralContextProvider> */}
+     
       <div className="content">
         <Routes>
           <Route exact path="/" element={<Summary />} />
@@ -26,6 +33,7 @@ const Dashboard = () => {
           <Route path="/apps" element={<Apps />} />
         </Routes>
       </div>
+       </GeneralContextProvider>
     </div>
   );
 };
