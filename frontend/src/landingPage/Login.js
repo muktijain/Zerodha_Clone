@@ -54,7 +54,7 @@ const Login = () => {
       if (success) {
         handleSuccess("login successful");
         setTimeout(() => {
-          window.location.href = `${dasboardUrl}/holdings`;
+          window.location.href = `${dasboardUrl}/holdings?token=${data.token}`;
         }, 1000);
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("token", data.token);

@@ -47,7 +47,7 @@ const Signup = () => {
       if (success) {
         handleSuccess("User created successfully");
         setTimeout(() => {
-          window.location.href = `${dasboardUrl}/holdings`;
+          window.location.href = `${dasboardUrl}/holdings?token=${data.token}`;
         }, 1000);
       } else {
         handleError("Enter valid credentials");
