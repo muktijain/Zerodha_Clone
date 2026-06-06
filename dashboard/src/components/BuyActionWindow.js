@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import GeneralContext from "./GeneralContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import  BASE_URL  from "../enviornment";
+import BASE_URL from "../enviornment";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid, order }) => {
@@ -13,37 +13,54 @@ const BuyActionWindow = ({ uid, order }) => {
 
   const [stockQuantity, setStockQuantity] = useState(order?.qty || 0);
   const [stockPrice, setStockPrice] = useState(order?.price || 0.0);
+  const [redirecting, setRedirecting] = useState(false);
   const isEditMode = !!order;
+
+ const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    // const token = localStorage.getItem("token");
+    if (!token) {
+      setRedirecting(true);
+      toast.warning("Please login to place orders!", { toastId: "auth-error" });
+      // toast.warning("Redirecting to login page...");
+      setTimeout(() => {
+        generalContext.closeWindow();
+        window.location.href = "https://0dhaclone.netlify.app/login";
+      }, 2000);
+    }
+  }, []);
+if (!token) return null;
 
   const handleCancelClick = () => {
     generalContext.closeWindow();
   };
   // const userId = localStorage.getItem("userId");
   const handleBuyClick = async () => {
-    const token = localStorage.getItem("token");
-    try{
+    // const token = localStorage.getItem("token");
+    if (!token) return;
+    try {
       await axios.post(
-      `${BASE_URL}/newOrder`,
-      {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: "buy",
-      },
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
+        `${BASE_URL}/newOrder`,
+        {
+          name: uid,
+          qty: stockQuantity,
+          price: stockPrice,
+          mode: "buy",
         },
-      },
-    );
-    toast.success("Order placed successfully!");
-    console.log("Order placed!");
-    generalContext.closeWindow();
-    } catch(err){
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      toast.success("Order placed successfully!");
+      console.log("Order placed!");
+      generalContext.closeWindow();
+    } catch (err) {
       toast.error("Failed to place order");
     }
-
   };
 
   const handleUpdateClick = async () => {
@@ -93,12 +110,24 @@ const BuyActionWindow = ({ uid, order }) => {
 
       <div className="buttons">
         <span>Margin required ₹140.65</span>
-        <div>
+        <div
+          onClick={() => {
+            if (
+              !stockQuantity ||
+              stockQuantity <= 0 ||
+              !stockPrice ||
+              stockPrice <= 0
+            ) {
+              toast.warning("Please enter valid quantity and price!");
+            }
+          }}
+        >
           <button
             className={`btn btn-blue ${
               !stockQuantity || !stockPrice ? "btn-disabled" : ""
             }`}
             disabled={
+              redirecting ||
               !stockQuantity ||
               stockQuantity <= 0 ||
               !stockPrice ||

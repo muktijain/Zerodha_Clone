@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-
+const axios = require("axios");
 const authRoute = require("./Routes/AuthRoute");
 
 const verifyUser = require("./middleware/verifyUser");
@@ -36,6 +36,23 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/", authRoute);
+app.get('/stockprice/:symbol', async (req, res) => {
+  const symbol = req.params.symbol + ".NS"; // NSE suffix
+  try {
+    const { data } = await axios.get(
+      `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0"
+        }
+      }
+    );
+    const price = data.chart.result[0].meta.regularMarketPrice;
+    res.json({ symbol, price });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch price" });
+  }
+});
 
 app.get("/allholdings", async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
