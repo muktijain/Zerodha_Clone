@@ -7,11 +7,36 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/allHoldings`).then((res) => {
-      // console.log(res.data);
-      setAllHoldings(res.data);
-    })
+    const fetchHoldings = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/allholdings`); // fixed lowercase
+        const holdings = res.data;
+
+        // Fetch live price for each stock
+        const updated = await Promise.all(
+          holdings.map(async (stock) => {
+            try {
+              const { data } = await axios.get(`${BASE_URL}/stockprice/${stock.name}`);
+              return { ...stock, price: data.price };
+            } catch {
+              return stock; // fallback to sample price
+            }
+          })
+        );
+
+        setAllHoldings(updated);
+      } catch (err) {
+        console.error("Failed to fetch holdings:", err);
+      }
+    };
+    fetchHoldings();
   }, []);
+
+  const totalInvestment = allHoldings.reduce((sum, stock) => sum + stock.avg * stock.qty, 0);
+const currentValue = allHoldings.reduce((sum, stock) => sum + stock.price * stock.qty, 0);
+const totalPnL = currentValue - totalInvestment;
+const pnlPercent = ((totalPnL / totalInvestment) * 100).toFixed(2);
+
 
   const labels = allHoldings.map((subArray) => subArray["name"]);
   const data = {
@@ -20,7 +45,7 @@ const Holdings = () => {
       {
         label: 'Stock Price',
         data: allHoldings.map((stock) => stock.price),
-        backgroundColor: 'rgba(53, 162, 235, 0.8)',
+        backgroundColor: 'rgba(53, 162, 235, 0.88)',
       },
     ],
   };
@@ -66,24 +91,22 @@ const Holdings = () => {
         </table>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <h5>
-            29,875.<span>55</span>{" "}
-          </h5>
-          <p>Total investment</p>
-        </div>
-        <div className="col">
-          <h5>
-            31,428.<span>95</span>{" "}
-          </h5>
-          <p>Current value</p>
-        </div>
-        <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
-          <p>P&L</p>
-        </div>
-      </div>
+<div className="row">
+  <div className="col">
+    <h5>₹{totalInvestment.toFixed(2)}</h5>
+    <p>Total investment</p>
+  </div>
+  <div className="col">
+    <h5>₹{currentValue.toFixed(2)}</h5>
+    <p>Current value</p>
+  </div>
+  <div className="col">
+    <h5 className={totalPnL >= 0 ? "profit" : "loss"}>
+      {totalPnL.toFixed(2)} ({pnlPercent}%)
+    </h5>
+    <p>P&L</p>
+  </div>
+</div>
       <VerticalGraph data={data} />
     </>
   );
