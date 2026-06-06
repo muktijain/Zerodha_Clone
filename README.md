@@ -216,7 +216,7 @@ Orders and portfolio data are visualized using **Chart.js** via `react-chartjs-2
 <img width="1909" height="942" alt="Login Signup" src="https://github.com/user-attachments/assets/338f6b5b-1460-4e48-93ad-2b9372014336" />
 
 ### 📈 Dashboard — Holdings
-<img width="1919" height="931" alt="Holdings" src="https://github.com/user-attachments/assets/8fbeeea1-8ae5-4496-99d1-49b2a77ffba7" />
+<img width="1919" height="933" alt="image" src="https://github.com/user-attachments/assets/5bbfe11a-137b-48e9-b168-644a4a9a5ed4" />
 
 ### 📊 Dashboard — Positions
 <img width="1918" height="949" alt="Positions" src="https://github.com/user-attachments/assets/4479b14c-2c5e-4a6f-8f32-a70fcbb9c6c5" />
